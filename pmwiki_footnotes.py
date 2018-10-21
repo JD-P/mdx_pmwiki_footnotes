@@ -2,7 +2,6 @@ from markdown.extensions import Extension
 from markdown.inlinepatterns import InlineProcessor
 from markdown.treeprocessors import Treeprocessor
 from markdown.util import etree
-import pdb
 
 footnote_pattern = r'\[\^((?:#[0-9]+(?: .+?)?)|@)\^\]'
 
@@ -70,7 +69,6 @@ class FootnoteInjector(Treeprocessor):
         self.footnotes = footnotes
 
     def run(self, root):
-        pdb.set_trace()
         footnote_divs = root.findall(".//div[@class='footnotes']")
         for footnote_div in footnote_divs:
             for footnote in self.footnotes.get_footnotes():
@@ -114,7 +112,6 @@ class FootnoteInlineProcessor(InlineProcessor):
             return footnote_div, match.start(0), match.end(0)
         # Handle footnotes
         elif len(inner_text.split()) > 1:
-            pdb.set_trace()
             if inner_text.split()[0][0] == '#':
                 number = inner_text.split()[0][1:]
                 text = inner_text.split(maxsplit=1)[1]
